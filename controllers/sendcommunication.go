@@ -53,7 +53,7 @@ func (uc CommunicationController) GetCommunication(w http.ResponseWriter, r *htt
 	oid := bson.ObjectIdHex(id)
 
 	// Stub user
-	u := models.Communication{}
+	u := models.User{}
 
 	// Fetch user
 	if err := uc.session.DB("go_rest_tutorial").C("users").FindId(oid).One(&u); err != nil {
@@ -70,16 +70,19 @@ func (uc CommunicationController) GetCommunication(w http.ResponseWriter, r *htt
 	fmt.Fprintf(w, "%s", uj)
 }
 
-// CreateUser creates a new user resource
-func (uc UserController) CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	// Stub a user to be populated from the body
+// CreateCommunication creates a new communication resource
+func (uc CommunicationController) CreateCommunication(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	// Stub an user to be populated from the body
 	u := models.User{}
 
 	// Populate the user data
 	json.NewDecoder(r.Body).Decode(&u)
 
 	// Add an Id
-	//u.Id = "foo"
+	u.Id = bson.NewObjectId()
+
+	// Write the user to mongo
+	uc.session.DB("go_rest_tutorial").C("users").Insert(u)
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(u)
@@ -91,8 +94,26 @@ func (uc UserController) CreateUser(w http.ResponseWriter, r *http.Request, p ht
 
 }
 
-// RemoveUser removes an existing user resource
-func (uc UserController) RemoveUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	// TODO: only write status for now
+// RemoveCommunication removes an existing communication resource
+func (uc CommunicationController) RemoveCommunication(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	// Grab id
+	id := p.ByName("id")
+
+	// Verify id is ObjectId, otherwise bail
+	if !bson.IsObjectIdHex(id) {
+		w.WriteHeader(404)
+		return
+	}
+
+	// Grab id
+	oid := bson.ObjectIdHex(id)
+
+	// Remove user
+	if err := uc.session.DB("go_rest_tutorial").C("users").RemoveId(oid); err != nil {
+		w.WriteHeader(404)
+		return
+	}
+
+	// Write status
 	w.WriteHeader(200)
 }
