@@ -8,8 +8,9 @@ import (
 	mgo "gopkg.in/mgo.v2"
 
 	// Third party packages
+	"github.com/Jhamm1/OutboundCommunication/controllers"
 	"github.com/julienschmidt/httprouter"
-	"github.com/swhite24/go-rest-tutorial/controllers"
+	//"github.com/swhite24/go-rest-tutorial/controllers"
 )
 
 func main() {
