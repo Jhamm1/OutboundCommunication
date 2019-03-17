@@ -56,7 +56,7 @@ func (uc CommunicationController) GetCommunication(w http.ResponseWriter, r *htt
 	u := models.Communication{}
 
 	// Fetch user
-	if err := uc.session.DB("go_rest_tutorial").C("users").FindId(oid).One(&u); err != nil {
+	if err := uc.session.DB("Outbound_communication").C("communication").FindId(oid).One(&u); err != nil {
 		w.WriteHeader(404)
 		return
 	}
