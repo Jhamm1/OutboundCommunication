@@ -19,16 +19,16 @@ func main() {
 	r := httprouter.New()
 
 	// Get a UserController instance
-	uc := controllers.NewUserController(getSession())
+	uc := controllers.NewCommunicationController(getSession())
 
 	// Get a user resource
-	r.GET("/user/:id", uc.GetUser)
+	r.GET("/user/:id", uc.GetCommunication)
 
 	// Create a new user
-	r.POST("/user", uc.CreateUser)
+	r.POST("/user", uc.CreateCommunication)
 
 	// Remove an existing user
-	r.DELETE("/user/:id", uc.RemoveUser)
+	r.DELETE("/user/:id", uc.RemoveCommunication)
 
 	// Fire up the server
 	http.ListenAndServe("localhost:3001", r)
