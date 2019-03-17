@@ -25,7 +25,7 @@ type (
 )
 
 // NewCommunicationController provides a reference to a CommunicationController with provided mongo session
-func NewCommunicationController() *CommunicationController {
+func NewCommunicationController(s *mgo.Session) *CommunicationController {
 	return &CommunicationController{}
 }
 
