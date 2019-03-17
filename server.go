@@ -3,7 +3,6 @@ package main
 import (
 	// Standard library packages
 
-	"fmt"
 	"net/http"
 
 	mgo "gopkg.in/mgo.v2"
@@ -14,6 +13,7 @@ import (
 )
 
 func main() {
+
 	// Instantiate a new router
 	r := httprouter.New()
 
@@ -23,13 +23,14 @@ func main() {
 	// Get a user resource
 	r.GET("/user/:id", uc.GetUser)
 
+	// Create a new user
 	r.POST("/user", uc.CreateUser)
 
+	// Remove an existing user
 	r.DELETE("/user/:id", uc.RemoveUser)
 
 	// Fire up the server
 	http.ListenAndServe("localhost:3001", r)
-	fmt.Println("localhost:3001")
 
 }
 
