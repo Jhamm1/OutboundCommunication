@@ -7,10 +7,10 @@ import (
 
 	"gopkg.in/mgo.v2/bson"
 
+	. "github.com/Jhamm1/OutboundCommunication/config"
+	. "github.com/Jhamm1/OutboundCommunication/dao"
+	. "github.com/Jhamm1/OutboundCommunication/models"
 	"github.com/gorilla/mux"
-	. "github.com/mlabouardy/movies-restapi/config"
-	. "github.com/mlabouardy/movies-restapi/dao"
-	. "github.com/mlabouardy/movies-restapi/models"
 	"github.com/streadway/amqp"
 )
 
@@ -18,7 +18,7 @@ var config = Config{}
 var dao = CommunicationsDAO{}
 
 // GET list of communications
-func AllMoviesEndPoint(w http.ResponseWriter, r *http.Request) {
+func AllCommunicationsEndPoint(w http.ResponseWriter, r *http.Request) {
 	communications, err := dao.FindAll()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -147,11 +147,11 @@ func init() {
 // Define HTTP request routes
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/communications", AllMoviesEndPoint).Methods("GET")
-	r.HandleFunc("/communications", CreateMovieEndPoint).Methods("POST")
-	r.HandleFunc("/communications", UpdateMovieEndPoint).Methods("PUT")
-	r.HandleFunc("/communications", DeleteMovieEndPoint).Methods("DELETE")
-	r.HandleFunc("/communications/{id}", FindMovieEndpoint).Methods("GET")
+	r.HandleFunc("/communications", AllCommunicationsEndPoint).Methods("GET")
+	r.HandleFunc("/communications", CreateCommunicationEndPoint).Methods("POST")
+	r.HandleFunc("/communications", UpdateCommunicationEndPoint).Methods("PUT")
+	r.HandleFunc("/communications", DeleteCommunicationEndPoint).Methods("DELETE")
+	r.HandleFunc("/communications/{id}", FindCommunicationEndpoint).Methods("GET")
 	if err := http.ListenAndServe(":3002", r); err != nil {
 		log.Fatal(err)
 	}
