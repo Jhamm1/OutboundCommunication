@@ -87,7 +87,7 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 		amqp.Publishing{
 			ContentType: "text/plain",
 			//Body:        []byte(body),
-			Body: []byte(body.Name),
+			Body: []byte(body.FirstName),
 		})
 	log.Printf(" [x] Sent %s", body)
 	failOnError(err, "Failed to publish a message")
