@@ -2,14 +2,20 @@ package models
 
 import "gopkg.in/mgo.v2/bson"
 
-type (
-	// Communication represents the structure of our resource
-	Communication struct {
-		Id        bson.ObjectId `json:"id" bson:"_id"`
-		FirstName string        `json:"firstName" bson:"firstName"`
-		LastName  string        `json:"lastName" bson:"lastName"`
-		Message   string        `json:"message" bson:"message"`
-		Email     string        `json:"email" bson:"email"`
-		Service   string        `json:"service" bson:"service"`
-	}
-)
+// Represents a movie, we uses bson keyword to tell the mgo driver how to name
+// the properties in mongodb document
+// type Movie struct {
+// 	ID          bson.ObjectId `bson:"_id" json:"id"`
+// 	Name        string        `bson:"name" json:"name"`
+// 	CoverImage  string        `bson:"cover_image" json:"cover_image"`
+// 	Description string        `bson:"description" json:"description"`
+// }
+
+type Communication struct {
+	ID        bson.ObjectId `bson:"_id" json:"id"`
+	FirstName string        `bson:"firstName" json:"firstName"`
+	LastName  string        `bson:"lastName" json:"lastName"`
+	Message   string        `bson:"message" json:"message"`
+	Email     string        `bson:"email" json:"email"`
+	Service   string        `bson:"service" json:"service"`
+}
