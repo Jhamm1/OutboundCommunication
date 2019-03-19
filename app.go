@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"gopkg.in/mgo.v2/bson"
@@ -53,11 +54,11 @@ func failOnError(err error, msg string) {
 func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 
 	config.Read()
-	var yourDomain string = "sandboxe81b7dcf72e8449aaa3c9ff9d94ac423.mailgun.org" // e.g. mg.yourcompany.com
+	var yourDomain string = os.Getenv("DOMAIN") // e.g. mg.yourcompany.com
 
 	// You can find the Private API Key in your Account Menu, under "Settings":
 	// (https://app.mailgun.com/app/account/security)
-	var privateAPIKey string = "284bd7d1e619938ce85027f232cfc8c1-de7062c6-e0950e9e"
+	var privateAPIKey string = os.Getenv("APIKEY")
 
 	defer r.Body.Close()
 	var communication Communication
