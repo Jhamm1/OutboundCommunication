@@ -11,5 +11,5 @@ type Communication struct {
 	Message   string        `bson:"message" json:"message"`
 	Email     string        `bson:"email" json:"email"`
 	Service   string        `bson:"service" json:"service"`
-	Status    string        `bson:"service" json:"service"`
+	Status    string        `bson:"status" json:"status"`
 }
