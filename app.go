@@ -94,11 +94,11 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	var yourDomain string = os.Getenv("DOMAIN") // e.g. mg.yourcompany.com
+	// var yourDomain string = os.Getenv("DOMAIN") // e.g. mg.yourcompany.com
 
-	// You can find the Private API Key in your Account Menu, under "Settings":
-	// (https://app.mailgun.com/app/account/security)
-	var privateAPIKey string = os.Getenv("APIKEY")
+	// // You can find the Private API Key in your Account Menu, under "Settings":
+	// // (https://app.mailgun.com/app/account/security)
+	// var privateAPIKey string = os.Getenv("APIKEY")
 
 	defer r.Body.Close()
 	var communication Communication
@@ -120,7 +120,22 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 	publishCommunicationOnQueue(rq, "Outbound_communication_service",
 		communication.FirstName)
 
-	SendEmail(yourDomain, privateAPIKey)
+	//SendEmail(yourDomain, privateAPIKey)
+
+	//ToDo
+	//Update the status field in the contact DB
+
+	// session, err := mgo.Dial("mongodb://localhost:27017")
+	// //idDoc := bson.D{{"_id", communication.ID}}
+	// c := session.DB("outbound-communications_db").C("communications")
+	selector := bson.M{"email": "julianhamm1@gmail.com"}
+	updator := bson.M{"$set": bson.M{"email": "newPlayer"}}
+	// err = c.Update(selector, updator) //&communication.Email)
+	// if err := c.Update(selector, updator); err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Printf("%+v\n", communication.ID)
+	dao.FindandUpdate(selector, updator)
 }
 
 func SendEmail(yourDomain string, privateAPIKey string) {
