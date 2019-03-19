@@ -61,9 +61,9 @@ func (m *CommunicationsDAO) Update(communication Communication) error {
 }
 
 // Find a communication by it
-func (m *CommunicationsDAO) FindandUpdate(selector string, find string) (Communication, error) {
+func (m *CommunicationsDAO) FindandUpdate(selector interface{}, update interface{}) (Communication, error) {
 	var communication Communication
-	err := db.C(COLLECTION).Update(selector, find)
+	err := db.C(COLLECTION).Update(selector, update)
 	// err2 := db.C(COLLECTION).UpdateId(bson.ObjectIdHex(id), &communication)
 	return communication, err
 }

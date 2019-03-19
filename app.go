@@ -136,6 +136,11 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 	// }
 	// fmt.Printf("%+v\n", communication.ID)
 	dao.FindandUpdate(selector, updator)
+
+	if err := dao.Insert(communication); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
 }
 
 func SendEmail(yourDomain string, privateAPIKey string) {
