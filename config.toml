@@ -1,4 +1,4 @@
 server="localhost"
 database="outbound-communications_db"
-mailgun_yourdomain="sandboxe81b7dcf72e8449aaa3c9ff9d94ac423.mailgun.org"
-mailgun_privateAPIKey="284bd7d1e619938ce85027f232cfc8c1-de7062c6-e0950e9e"
+yourdomain="sandboxe81b7dcf72e8449aaa3c9ff9d94ac423.mailgun.org"
+privateAPIKey="284bd7d1e619938ce85027f232cfc8c1-de7062c6-e0950e9e"

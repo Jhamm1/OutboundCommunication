@@ -22,9 +22,6 @@ import (
 var config = Config{}
 var dao = CommunicationsDAO{}
 
-var privateAPIKeyx
-var yourDomainx
-
 // GET list of communications
 func AllCommunicationsEndPoint(w http.ResponseWriter, r *http.Request) {
 	communications, err := dao.FindAll()
@@ -54,6 +51,14 @@ func failOnError(err error, msg string) {
 
 // POST a new communication
 func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
+
+	config.Read()
+	var yourDomain string = "sandboxe81b7dcf72e8449aaa3c9ff9d94ac423.mailgun.org" // e.g. mg.yourcompany.com
+
+	// You can find the Private API Key in your Account Menu, under "Settings":
+	// (https://app.mailgun.com/app/account/security)
+	var privateAPIKey string = "284bd7d1e619938ce85027f232cfc8c1-de7062c6-e0950e9e"
+
 	defer r.Body.Close()
 	var communication Communication
 	if err := json.NewDecoder(r.Body).Decode(&communication); err != nil {
@@ -101,17 +106,16 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 	failOnError(err, "Failed to publish a message")
 
 	//--------------------------------------------------------//
-	config.Read()
-	var yourDomain = config.mailgun_yourdomain
-	var privateAPIKey = cong.mailgun_privateAPIKey
-	
+
 	SendEmail(yourDomain, privateAPIKey)
 }
 
-func SendEmail(yourDomainx, privateAPIKeyx) {
+// yourDomain string
+// privateAPIKey  string
+func SendEmail(yourDomain string, privateAPIKey string) {
 
 	// Create an instance of the Mailgun Client
-	mg := mailgun.NewMailgun(yourDomainx, privateAPIKeyx)
+	mg := mailgun.NewMailgun(yourDomain, privateAPIKey)
 
 	sender := "developer@micronox.co.uk"
 	subject := "Fancy subject!"
