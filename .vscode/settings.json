@@ -1,5 +1,8 @@
 {
   "files.exclude": {
-    ".env": "explorerExcludedFiles"
+    ".env": "explorerExcludedFiles",
+    ".vscode": "explorerExcludedFiles",
+    "config.toml": "explorerExcludedFiles",
+    "contract": "explorerExcludedFiles"
   }
 }
