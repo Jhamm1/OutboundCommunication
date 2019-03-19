@@ -128,21 +128,21 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 	// session, err := mgo.Dial("mongodb://localhost:27017")
 	// //idDoc := bson.D{{"_id", communication.ID}}
 	// c := session.DB("outbound-communications_db").C("communications")
-	selector := bson.M{"email": "julianhamm1@gmail.com"}
+	selector := bson.M{"_id": communication.ID}
 	updator := bson.M{"$set": bson.M{"email": "newPlayer"}}
 	// err = c.Update(selector, updator) //&communication.Email)
 	// if err := c.Update(selector, updator); err != nil {
 	// 	panic(err)
 	// }
 	// fmt.Printf("%+v\n", communication.ID)
+
+	time.Sleep(2 * time.Second)
+
 	dao.FindandUpdate(selector, updator)
 
-	if err := dao.Insert(communication); err != nil {
-		respondWithError(w, http.StatusInternalServerError, err.Error())
-		return
-	}
 }
 
+//Add sender, subject, body and recipient as a param on this method
 func SendEmail(yourDomain string, privateAPIKey string) {
 
 	// Create an instance of the Mailgun Client
@@ -231,4 +231,5 @@ func main() {
 	if err := http.ListenAndServe(":3002", r); err != nil {
 		log.Fatal(err)
 	}
+	//Open("https://google.com")
 }
