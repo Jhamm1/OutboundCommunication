@@ -1,13 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"runtime"
 
 	"github.com/Jhamm1/OutboundCommunication/controllers"
-	. "github.com/Jhamm1/OutboundCommunication/testpage"
 	"github.com/gorilla/mux"
 )
 
@@ -26,12 +23,4 @@ func apiEndpoints() {
 // HTTP request routes
 func main() {
 	apiEndpoints()
-	if runtime.GOOS == "windows" {
-		fmt.Println("Can't Execute this on a windows machine")
-	} else {
-		testpage.execute()
-
-	}
-	fmt.Println("Can't Execute this on a windows machine")
-	testpage.openbrowser("")
 }
