@@ -1,7 +1,7 @@
 # OutboundCommunication
 This service caters for sending outbound communications to customers.
 
-![Outbound communications framework architecture](Micronox-Outbound communication.png)
+![Outbound communications framework architecture](Micronox-OutboundCommunication.png)
 
 ## Steps to setup the service
 
