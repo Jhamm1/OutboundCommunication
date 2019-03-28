@@ -3,6 +3,6 @@
     ".env": "explorerExcludedFiles",
     ".vscode": "explorerExcludedFiles",
     "config.toml": "explorerExcludedFiles",
-    "contract": "explorerExcludedFiles"
+    "receive/.env": "explorerExcludedFiles"
   }
 }

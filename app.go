@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// HTTP request routes
 func apiEndpoints() {
 	r := mux.NewRouter()
 	r.HandleFunc("/communications", controllers.AllCommunicationsEndPoint).Methods("GET")
@@ -20,7 +21,7 @@ func apiEndpoints() {
 	}
 }
 
-// HTTP request routes
+// Main function
 func main() {
 	apiEndpoints()
 }

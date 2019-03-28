@@ -1,4 +1,4 @@
-.env
 .vscode
 config.toml
-contract
+.env
+receive/.env
