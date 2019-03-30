@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 
-	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
 	. "github.com/Jhamm1/OutboundCommunication/config"
@@ -131,24 +130,6 @@ func CreateCommunicationEndPoint(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(b))
 	///------------------------ Rabbit MQ -----------------------------------//
 	publishCommunicationOnQueue(queueURL, queueName, communication)
-
-	//ToDo: Update the status field to 'completedRequest' in the contact DB
-
-	//----- Example code for inserting data into another DB
-	session, err := mgo.Dial("mongodb://localhost:27017")
-	//idDoc := bson.D{{"_id", communication.ID}}
-	c := session.DB("outbound-communications_db").C("communications")
-	selector := bson.M{"_id": communication.ID}
-	updator := bson.M{"$set": bson.M{"email": "newPlayer"}}
-	err = c.Update(selector, updator) //&communication.Email)
-	if err := c.Update(selector, updator); err != nil {
-		panic(err)
-	}
-	fmt.Printf("%+v\n", communication.ID)
-
-	// selector := bson.M{"_id": communication.ID}
-	// updator := bson.M{"$set": bson.M{"email": "newPlayer"}}
-	// dao.FindandUpdate(selector, updator)
 
 }
 
